@@ -5,7 +5,7 @@ $clear_title = $_GET['clear_title'];
 
 
 
-$category = $data->request("https://www.shoppiapp.com/api/website/category/json?clear_title=" . $clear_title));
+$category = $data->request("https://www.shoppiapp.com/api/website/category/json?clear_title=" . $clear_title);
 
 
 
