@@ -10,6 +10,7 @@ class data{
    var $title;
    var $logo;
    var $cover;
+   var $email;
    
    function set($name,$value){
 	   
