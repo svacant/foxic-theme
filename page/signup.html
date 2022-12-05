@@ -1,0 +1,72 @@
+    <!--
+$title = "Anmeldung";
+-->
+<div class="page-content">
+    <div class="holder">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-18 col-lg-12">
+                    <h2 class="text-center">Account erstellen</h2>
+                    <div class="form-wrapper">
+                        <p>Um auf Ihre Wunschliste, Ihr Adressbuch und Ihre Kontaktpräferenzen zuzugreifen und um die Vorteile unserer schnellen Kaufabwicklung zu nutzen, erstellen Sie jetzt ein Konto bei uns.</p>
+                        <form id="signupForm">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="text" id="signupFormName" class="form-control" name="name" placeholder="Name">
+                                        <div class="invalid-feedback" style="display: none" id="signupInvalidName">
+                                            Can't be blank
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="text" id="signupFormSurname" class="form-control" name="surname" placeholder="Vorname">
+                                        <div class="invalid-feedback" style="display: none" id="signupInvalidSurname">
+                                            Can't be blank
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="signupFormEmail" name="email" placeholder="E-mail">
+                                <div class="invalid-feedback" style="display: none" id="signupInvalidEmail">
+                                    Can't be blank
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="signupFormUsername" class="form-control" name="username"  placeholder="Username">
+                                <div class="invalid-feedback" style="display: none" id="signupInvalidUsername">
+                                    Can't be blank
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="signupFormPassword" class="form-control" name="password"  placeholder="Passwort">
+                                <div class="invalid-feedback" style="display: none" id="signupInvalidPassword">
+                                    Can't be blank
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="signupFormPassword2" class="form-control" name="password2" placeholder="Passwort bestätigen">
+                                <div class="invalid-feedback" style="display: none" id="signupInvalidPassword2">
+                                    Password doesn't match
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <input name="terms" type="checkbox" id="signupFormCheckbox">
+                                <label for="signupFormCheckbox">Mit der Registrierung Ihrer Daten erklären Sie sich mit unserer <a href="#" class="custom-color" data-fancybox data-src="#modalTerms">Terms and Conditions</a> und <a href="#" class="custom-color" data-fancybox data-src="#modalCookies">Cookie Policy</a></label>
+                                <div class="invalid-feedback" style="display: none" id="signupInvalidCheckbox">
+                                    You must agree to the terms of conditions before signing up.
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn">Account erstellen</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/signup.js"></script>
