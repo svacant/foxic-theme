@@ -1,0 +1,229 @@
+<!--
+$title = "Pay your order";
+-->
+<div class="page-content">
+	<div class="holder">
+		<div class="container">
+			<h1 class="text-center">Thank you!</h1>
+			<div class="row">
+				<div class="col-lg-12">
+					Your order has been successfully processed.
+				</div>
+				<div class="col-lg-12">
+					<span class="font-weight-bold">Order ID: </span>
+					<span id="orderId"></span>
+				</div>
+				<div class="col-lg-12">
+					<span class="font-weight-bold">Order Status: </span>
+					<span id="orderStatus"></span>
+				</div>
+			</div>
+			<div
+					class="row mt-5"
+					id="continue-payment"
+					style="display: none"
+			>
+				<div class="col-lg-12">
+					<h3 class="font-weight-bold">Finish payment</h3>
+				</div>
+				<div class="col-lg-12" id="paypal-payment" style="display: none">
+					<form
+							target="_blank"
+							action="https://www.paypal.com/cgi-bin/webscr"
+							method="post"
+							class="pull-left"
+					>
+						<input
+								type="hidden"
+								id="cmd"
+								name="cmd"
+								value="_xclick"
+						>
+						<input
+								type="hidden"
+								id="business"
+								name="business"
+								value="info@nf-elektronik.com"
+						>
+						<input
+								type="hidden"
+								id="custom"
+								name="custom"
+								value="3789"
+						>
+						<input
+								type="hidden"
+								id="item_name"
+								name="item_name"
+								value="CHCK5124568412278"
+						>
+						<input
+								type="hidden"
+								id="amount"
+								name="amount"
+								value="5.59"
+						>
+						<input
+								type="hidden"
+								id="notify_url"
+								name="notify_url"
+								value="https://www.shoppi.app/plugins/paypal/ipn.php"
+						>
+						<input
+								type="hidden"
+								id="no_note"
+								name="no_note"
+								value="1"
+						>
+						<input
+								type="hidden"
+								id="return"
+								name="return"
+								value="https://www.shoppi.app/orders/nov/chck5124568412278"
+						>
+						<input
+								type="hidden"
+								id="currency_code"
+								name="currency_code"
+								value="EUR"
+						>
+						<input
+								type="hidden"
+								id="lc"
+								name="lc"
+								value="ro_RO"
+						>
+						<input
+								type="hidden"
+								id="bn"
+								name="bn"
+								value="PP-BuyNowBF"
+						>
+						<button
+								type="submit"
+								class="btn btn-default"
+						>
+							<i class="fa fa-paypal"> Pay with PayPal</i>
+						</button>
+					</form>
+				</div>
+				<div class="col-lg-9" id="stripe-payment" style="display: none">
+					<div id="payment-request-button"></div>
+				</div>
+				<div class="col-lg-12 mt-3">
+					<span class="font-weight-bold">Wire transfer</span>
+					<div>
+						<div>IBAN: DE23 6007 0024 0041 1801 00</div>
+						<div>DEUTDEDBSTG</div>
+						<div>Deutsche Bank</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const searchParams = new URLSearchParams(window.location.search);
+    const orderId = searchParams.get('orderId');
+    const payment = searchParams.get('payment');
+
+
+
+    console.log(payment);
+
+    $(document).ready(() => {
+        $('body').toggleClass('has-btn-not-upper');
+
+        $("#orderId").html(orderId);
+
+        $.get(`https://www.shoppiapp.com/api/orders/view/json?pageId=10587&id=${orderId}`, response => {
+            $("#orderStatus").html(response.status);
+
+            if (response.status === "pending") {
+                $("#continue-payment").show();
+
+                if (payment === 'paypal') {
+                    $("#paypal-payment").show();
+
+	                $("#custom").val(orderId);
+	                $("#item_name").val(response.title);
+	                $("#amount").val(response.total);
+	                $("#return").val(window.location.href);
+	                $("#lc").val(response.local);
+	                $("#currency_code").val(response.currency_code);
+	            } else {
+                    $("#stripe-payment").show();
+
+                    const stripe = Stripe(response.stripe_pkey, {
+                        apiVersion: "2022-11-15",
+                    });
+
+                    const paymentRequest = stripe.paymentRequest({
+                        country: response.country,
+                        currency: response.currency_code.toLowerCase(),
+                        total: {
+                            label: response.title,
+                            amount: response.stripe_total,
+                        },
+                        requestPayerName: true,
+                        requestPayerEmail: true,
+                    });
+
+                    const elements = stripe.elements();
+                    const prButton = elements.create('paymentRequestButton', {
+                        paymentRequest,
+                    });
+
+                    (async () => {
+                        // Check the availability of the Payment Request API first.
+                        const result = await paymentRequest.canMakePayment();
+                        if (result) {
+                            prButton.mount('#payment-request-button');
+                        } else {
+                            document.getElementById('payment-request-button').style.display = 'none';
+                        }
+                    })();
+
+                    paymentRequest.on('paymentmethod', async (ev) => {
+                        // Confirm the PaymentIntent without handling potential next actions (yet).
+                        const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(
+                            clientSecret,
+                            {payment_method: ev.paymentMethod.id},
+                            {handleActions: false}
+                        );
+
+                        if (confirmError) {
+                            // Report to the browser that the payment failed, prompting it to
+                            // re-show the payment interface, or show an error message and close
+                            // the payment interface.
+                            ev.complete('fail');
+                        } else {
+                            // Report to the browser that the confirmation was successful, prompting
+                            // it to close the browser payment method collection interface.
+                            ev.complete('success');
+                            // Check if the PaymentIntent requires any actions and if so let Stripe.js
+                            // handle the flow. If using an API version older than "2019-02-11"
+                            // instead check for: `paymentIntent.status === "requires_source_action"`.
+                            if (paymentIntent.status === "requires_action") {
+                                // Let Stripe.js handle the rest of the payment flow.
+                                const {error} = await stripe.confirmCardPayment(clientSecret);
+                                if (error) {
+                                    alert("Payment failed. Please try again or contact us if the issue persists.")
+                                    // The payment failed -- ask your customer for a new payment method.
+                                } else {
+                                    location.reload();
+                                    // The payment has succeeded.
+                                }
+                            } else {
+                                location.reload();
+                                // The payment has succeeded.
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    })
+</script>
