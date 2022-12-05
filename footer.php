@@ -10,7 +10,7 @@
                         </div>
                         <div class="collapsed-content">
                             <ul>
-                                <li>E-mail: <a href="mailto:service@nf-elektronik.com">service@nf-elektronik.com</a>
+                                <li>E-mail: <a href="mailto:<?=$data->email;?>"><?=$data->email;?></a>
                                 </li>
                                 <!-- <li>Hours: 10:00 - 18:00, Mon - Fri</li> -->
                             </ul>
@@ -104,7 +104,7 @@
     <div class="footer-bottom footer-bottom--bg">
         <div class="container">
             <div class="footer-copyright text-center">
-                <a href="/">NF-ELEKTRONIK</a> ©2022 copyright
+                <a href="/"><?=$data->title;?></a> ©<?=date("Y");?> copyright
             </div>
         </div>
     </div>
