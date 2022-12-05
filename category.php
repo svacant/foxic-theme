@@ -5,7 +5,7 @@ $clear_title = $_GET['clear_title'];
 
 
 
-$category = json_decode(file_get_contents("https://www.shoppiapp.com/api/website/category/json?pageId=10587&clear_title=" . $clear_title));
+$category = $data->request("https://www.shoppiapp.com/api/website/category/json?clear_title=" . $clear_title));
 
 
 
@@ -79,11 +79,11 @@ $category = json_decode(file_get_contents("https://www.shoppiapp.com/api/website
 			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	>
 	<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,[email protected],300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
 			rel="stylesheet"
 	>
 	<link
-			href="https://fonts.googleapis.com/css2?family=Open%20Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Open%20Sans:ital,[email protected],300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 			rel="stylesheet"
 	>
 	<link
