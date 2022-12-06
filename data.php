@@ -15,19 +15,18 @@ class data{
    function set($name,$value){
 	   
 	   $this->$name = $value;
-	
+	   
 
    }
    
    function request($url){
-	   //this is useful to apply http referer file_get_contents
-
+	   
 			$opts = array(
 			  'http'=>array(
 				'method'=>"GET",
 				'header'=>"Accept-language: en\r\n" .
 						  "Cookie: foo=bar\r\n" . 
-						 "Referer: http://".$_SERVER['SERVER_NAME']."\r\n"
+						 "Referer: https://".$_SERVER['SERVER_NAME']."\r\n"
 			  )
 			);
 
@@ -42,19 +41,9 @@ class data{
     
      function __construct() {
          global $db, $mem_var;
-         
-         //Initialize logo and title of the page
-         
-        /* 
-        $sql = "SELECT * FROM data";
-		$result = $db->query($sql);
+
 		
-		while($row = $result->fetch_assoc()) {
-			$this->set($row['name'], $row['data']); //set data
-		}
-		*/
-		
-			$prefix = md5($_SERVER["HTTP_HOST"]); //based on host
+			$prefix = md5($_SERVER["SERVER_NAME"]); //based on host
 			
 
 			$opts = array(
@@ -73,7 +62,8 @@ class data{
 			
 			
 			if(!$info){
-				$info = json_decode(file_get_contents("https://www.shoppiapp.com/api/website/info/json", false, $context));
+				$info = $this->request("https://www.shoppiapp.com/api/website/info/json");
+
 				$mem_var->set($prefix, $info);
 			}
 			
