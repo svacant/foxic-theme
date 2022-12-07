@@ -8,7 +8,7 @@ $(document).ready(() => {
         //TODO: 404
     }
 
-    $("#categoryTitle").html(categoryName);
+    $("#categoryTitle").html(decodeURIComponent(categoryName));
 
     let skip = 0;
     let reachedEnd = false;
@@ -39,7 +39,7 @@ $(document).ready(() => {
             return;
         }
 
-        $.get(`https://www.shoppiapp.com/api/website/listSells/json?parent=${categoryId}&pageId=10587&limit=6&skip=${skip}`).then(response => {
+        $.get(`https://www.shoppiapp.com/api/website/listSells/json?parent=${categoryId}&limit=6&skip=${skip}`).then(response => {
             const products = response.sells;
             const grid = $("#category-products-grid");
             const template = $("#category-product").html();
