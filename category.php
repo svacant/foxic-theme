@@ -1,13 +1,13 @@
 <?
 include "data.php";
 
-$clear_title = $_GET['clear_title'];
+extract($_GET);
 
+$p = preg_match_all('/\d+/', $category, $array);
 
+$id = $array[0][0];
 
-$category = $data->request("https://www.shoppiapp.com/api/website/category/json?clear_title=" . $clear_title);
-
-
+$category = $data->request("https://www.shoppiapp.com/api/website/category/json?id=" . $id);
 
 ?>
 <html lang="en">
@@ -23,11 +23,11 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 	>
 	<meta
 			name="description"
-			content="<?= $product->description; ?>"
+			content="<?= $category->description; ?>"
 	>
 	<meta
 			name="keywords"
-			content="<?= $product->keywords; ?>"
+			content="<?= $category->keywords; ?>"
 	>
 	<meta
 			name="author"
@@ -35,7 +35,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 	>
 	<meta
 			property="og:title"
-			content="<?php echo $product->title; ?>"
+			content="<?php echo $category->title; ?>"
 	/>
 	<meta
 			property="og:type"
@@ -45,7 +45,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 			property="og:image"
 			content="<?php echo $product->photo; ?>"
 	/>
-	<title><? echo $product->title; ?></title>
+	<title><? echo $category->title; ?></title>
 	<link
 			rel="shortcut icon"
 			type="image/x-icon"
@@ -79,11 +79,11 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	>
 	<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,[email protected],300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
 			rel="stylesheet"
 	>
 	<link
-			href="https://fonts.googleapis.com/css2?family=Open%20Sans:ital,[email protected],300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Open%20Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 			rel="stylesheet"
 	>
 	<link
@@ -115,10 +115,10 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 		<div class="container">
 			<ul class="breadcrumbs">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="/">Home</a>
 				</li>
 				<li>
-					<span>Category</span>
+					<span><?=$category->title;?></span>
 				</li>
 			</ul>
 		</div>
@@ -186,7 +186,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 			<!-- Filter Row -->
 			<div class="filter-row">
 				<div class="row">
-					<div class="items-count"> item(s)</div>
+					<div><span class="items-count">0</span> item(s)</div>
 					<div class="select-wrap d-none d-md-flex">
 						<div class="select-label">SORT:</div>
 						<div class="select-wrapper select-wrapper-xxs">
@@ -699,6 +699,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 						>
 							<span></span>
 						</div>
+						<button style="display:none;" id="view_more_products"></button>
 <!--						<div class="circle-loader-wrap">-->
 <!--							<div class="circle-loader">-->
 <!--								<a-->
