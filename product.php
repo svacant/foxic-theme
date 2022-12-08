@@ -4,9 +4,9 @@ include "data.php";
 $clear_title = $_GET['clear_title'];
 
 
-	
-$product = $data->request("https://www.shoppiapp.com/api/website/product/json?clear_title=".$clear_title);
-
+if(!$product=$mem_var->get($clear_title)){
+	$product = $data->request("https://www.shoppiapp.com/api/website/product/json?clear_title=".$clear_title);
+}
 
 	if(!$product->title){
 		Header("Location: /");
@@ -15,6 +15,7 @@ $product = $data->request("https://www.shoppiapp.com/api/website/product/json?cl
 	}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -88,20 +89,40 @@ $product = $data->request("https://www.shoppiapp.com/api/website/product/json?cl
                         </div>
                         <div class="col-md-auto prd-block-prevnext-wrap">
                             <div class="prd-block-prevnext">
-                                <img class="" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="images/skins/fashion/products/product-02-1.jpg" alt="">
-                            </div>
+                              </div>
                         </div>
                     </div>
                     <div class="row prd-block prd-block--prv-bottom">
                         <div class="col-md-8 col-lg-8 col-xl-8 aside--sticky js-sticky-collision">
                             <div class="aside-content">
-                                <!-- Product Gallery -->
-                                <div class="mb-2 js-prd-m-holder"></div>
-                                <div class="prd-block_main-image">
-                                    <img src="<?=$product->photo;?>" data-src="<?=$product->photo;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$product->photo;?>"/>
-                                </div>
-                            </div>
-                        </div>
+					<!-- Product Gallery -->
+<div class="mb-2 js-prd-m-holder"></div>
+<div class="prd-block_main-image">
+	<div class="prd-block_main-image-holder" id="prdMainImage">
+		<div class="product-main-carousel js-product-main-carousel" data-zoom-position="inner">
+			<div data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$product->photo_hires;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$product->photo_hires;?>"/></span></div>
+			<? foreach($product->photos as $photo){?>
+				<div data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$photo;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$photo;?>"/></span></div>
+			<?}?>
+		</div>
+	</div>
+	<div class="prd-block_main-image-links">
+		<a href="<?=$product->photo_hires;?>" class="prd-block_zoom-link"><i class="icon-zoom-in"></i></a>
+	</div>
+</div>
+<div class="product-previews-wrapper">
+	<div class="product-previews-carousel js-product-previews-carousel">
+		<a href="#" data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$product->photo;?>" class="lazyload fade-up" alt=""/></span></a>
+		
+		<? foreach($product->photos as $photo){?>
+			<a href="#" data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$photo;?>" class="lazyload fade-up" alt=""/></span></a>
+		<? }?>
+		</div>
+</div>
+<!-- /Product Gallery -->
+</div>
+                      </div>
+                        
                         <div class="col-md-10 col-lg-10 col-xl-10 mt-1 mt-md-0">
                             <div class="prd-block_description prd-block_info_item ">
 								<h3>Artikelbeschreibung</h3>
