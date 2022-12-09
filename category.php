@@ -3,7 +3,7 @@ include "data.php";
 
 $category = $_SERVER['QUERY_STRING'];
 
-$p = preg_match_all('/\d+/', $category, $array);
+$p = preg_match_all('/\d+$/', $category, $array);
 
 $id = $array[0][0];
 
