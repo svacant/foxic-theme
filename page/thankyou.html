@@ -147,7 +147,7 @@ $title = "Pay your order";
 
                 if (payment === 'paypal') {
                     $("#paypal-payment").show();
-
+              		$("#business").val(response.paypal_email);
 	                $("#custom").val(orderId);
 	                $("#item_name").val(response.title);
 	                $("#amount").val(response.total);
