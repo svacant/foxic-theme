@@ -43,7 +43,7 @@ $title = "Pay your order";
 								type="hidden"
 								id="business"
 								name="business"
-								value="info@nf-elektronik.com"
+								value="[email protected]"
 						>
 						<input
 								type="hidden"
@@ -123,6 +123,7 @@ $title = "Pay your order";
 	</div>
 </div>
 
+
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     const searchParams = new URLSearchParams(window.location.search);
@@ -138,7 +139,7 @@ $title = "Pay your order";
 
         $("#orderId").html(orderId);
 
-        $.get(`https://www.shoppiapp.com/api/orders/view/json?pageId=10587&id=${orderId}`, response => {
+        $.get(`https://www.shoppiapp.com/api/orders/view/json?id=${orderId}`, async response => {
             $("#orderStatus").html(response.status);
 
             if (response.status === "pending") {
@@ -156,7 +157,11 @@ $title = "Pay your order";
 	            } else {
                     $("#stripe-payment").show();
 
-                    const stripe = Stripe(response.stripe_pkey, {
+                     const publishableKey = response.stripe_pkey;
+	               
+	               // const publishableKe= 'pk_test_51HPDt8JcAjHkQyk3bUi0hys2lSktDJGqJTKVvgHJFzx2b9j0imEIN0b4p2xvuDEZlT7d4UnkUxMCnBsPhusaUZ9o00eSn4yRc2';
+
+                    const stripe = Stripe(publishableKey, {
                         apiVersion: "2022-11-15",
                     });
 
@@ -171,12 +176,18 @@ $title = "Pay your order";
                         requestPayerEmail: true,
                     });
 
-                    const elements = stripe.elements();
+                    const { clientSecret } = await fetch("/plugins/stripe_payment.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(response),
+                    }).then((r) => r.json());
+
+                    const elements = stripe.elements({ clientSecret });
                     const prButton = elements.create('paymentRequestButton', {
                         paymentRequest,
                     });
 
-                    (async () => {
+                    await (async () => {
                         // Check the availability of the Payment Request API first.
                         const result = await paymentRequest.canMakePayment();
                         if (result) {
@@ -224,6 +235,11 @@ $title = "Pay your order";
                     });
                 }
             }
+            
+              if (response.status === "paid") {
+				  //TODO
+			  }
         });
     })
 </script>
+
