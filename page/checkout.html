@@ -812,7 +812,7 @@
             const taxTotal = cartValueTotal * (taxPercentage / 100);
             $('#checkoutTotalTaxValue').html('€ ' + taxTotal.toFixed(2));
 
-            cartValueTotal += taxTotal;
+            //cartValueTotal += taxTotal;
             cartValueTotal += shippingCosts;
             $('#checkoutValueTotal').html('€ ' + cartValueTotal.toFixed(2));
         }
