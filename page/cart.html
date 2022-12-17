@@ -376,7 +376,7 @@ $keywords = 'cart,checkout,system';
             const taxTotal = cartValueTotal * (taxPercentage / 100);
             $('#cartTotalTaxValue').html('€ '+taxTotal.toFixed(2));
 
-            cartValueTotal += taxTotal;
+           // cartValueTotal += taxTotal;
             cartValueTotal += shippingCosts;
             $('#cartValueTotal').html('€ '+cartValueTotal.toFixed(2));
         }
