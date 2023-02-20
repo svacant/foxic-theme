@@ -9,7 +9,7 @@ $cart_cache = $mem_var->get("cart_" . $sess);
 $cart = $cart_cache['cart'];
 
 $email = getUserEmail($con);
-$pageId = 52;
+$pageId = 52; //how to get the id, maybe session?
 
 $items = [];
 foreach ($cart as $itemId => $item) {
@@ -38,7 +38,10 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'name' => $shippingAddress['first_name'],
     'surname' => $shippingAddress['last_name'],
     'address' => $shippingAddress['address'],
-    'address2' => $shippingAddress['address']
+    'address2' => $shippingAddress['address'],
+    'ship_cost'=>$ship_cost,
+    'city' => $shippingAddress['city'],   
+    'country' => $shippingAddress['country'],
 ]));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
