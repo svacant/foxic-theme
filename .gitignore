@@ -1,5 +1,11 @@
 vendor/
+!css/vendor/
+!js/vendor/
+!js/vendor-special/
 *.log
 .env
 .idea/
 .DS_Store
+
+# Ignore binary fonts
+fonts/icomoon/fonts/*.woff2

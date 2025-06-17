@@ -1,0 +1,44 @@
+/* Map old icon classes to Font Awesome equivalents */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    src: url('fonts/fa-solid-900.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    src: url('fonts/fa-brands-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Font Awesome 6 Regular';
+    src: url('fonts/fa-regular-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+.icon {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+.icon-facebook:before { content: "\f09a"; }
+.icon-twitter:before { content: "\f099"; }
+.icon-google:before { content: "\f1a0"; }
+.icon-vimeo:before { content: "\f27d"; }
+.icon-youtube:before { content: "\f167"; }
+.icon-pinterest:before { content: "\f0d2"; }
+.icon-scissors:before { content: "\f0c4"; }
+.icon-grid:before { content: "\f009"; }
+.icon-list:before { content: "\f03a"; }
+.icon-angle-down:before { content: "\f107"; }
+.icon-filter:before { content: "\f0b0"; }
+.icon-filter-close:before { content: "\f00d"; }
+.icon-heart-stroke:before { content: "\f004"; }
+.icon-heart-hover:before { content: "\f004"; }
+.icon-eye:before { content: "\f06e"; }
+.icon-palette:before { content: "\f53f"; }
+.icon-google-pay-logo:before { content: "\f879"; }
+.icon-visa-pay-logo:before { content: "\f1f0"; }
+.icon-apple-pay-logo:before { content: "\f415"; }
+.icon-star-fill:before { content: "\f005"; }
+.icon-star:before { content: "\f005"; }
