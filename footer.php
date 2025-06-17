@@ -315,7 +315,7 @@
             return `/category/${found[0]}/${categoryId}`;
         });
 
-        var context = $.get("https://www.shoppiapp.com/api/website/listCategories/json?pageId=10587&limit=20", function (data) {
+        var context = $.get("https://www.shoppiapp.com/api/website/listCategories/json?pageId=<?php echo $shoppiPageId; ?>&limit=20", function (data) {
 
             /*
              Retrieve the template data from the HTML (jQuery is used here).
