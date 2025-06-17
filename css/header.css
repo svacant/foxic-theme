@@ -1,0 +1,10 @@
+/* Basic header styling */
+.site-header {
+    background-color: #222;
+    padding: 10px;
+}
+.site-header nav a {
+    color: #fff;
+    margin-right: 15px;
+    text-decoration: none;
+}

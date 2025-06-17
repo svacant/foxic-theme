@@ -40,3 +40,9 @@ Need hosting? Visit [shoppi.cloud](https://www.shoppi.cloud).
 ## MVC Structure
 
 The application now follows a simple MVC approach. Controllers live in `app/controllers`, templates in `app/views`, and a small `View` class handles rendering. Entry scripts (`index.php`, `product.php`, `page.php`) simply delegate to their respective controllers.
+
+## Front-End Assets
+
+Bootstrap, jQuery, lazysizes plugins and Font Awesome fonts are not stored in the repository. Run `scripts/install_assets.sh` to download these assets before serving the site. The script places the files under `css/vendor`, `js/vendor`, `js/vendor-special`, and `fonts/icomoon`.
+
+Font files are omitted from the repository due to binary size limitations.
