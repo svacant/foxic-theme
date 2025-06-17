@@ -1,0 +1,5 @@
+.hdr{background:#fff;padding:10px 0;border-bottom:1px solid #e5e5e5}
+.hdr .logo img{max-height:40px}
+.mobilemenu{display:none;list-style:none;padding:0;margin:0}
+.mobilemenu-toggle{background:none;border:0;font-size:20px}
+@media (max-width:768px){.mobilemenu{display:block}}
