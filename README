@@ -32,3 +32,7 @@ Client-side search queries `/plugins/search.php` which proxies the Shoppi API an
 ## Hosting
 
 Need hosting? Visit [shoppi.cloud](https://www.shoppi.cloud).
+
+## MVC Structure
+
+The application now follows a simple MVC approach. Controllers live in `app/controllers`, templates in `app/views`, and a small `View` class handles rendering. Entry scripts (`index.php`, `product.php`, `page.php`) simply delegate to their respective controllers.
