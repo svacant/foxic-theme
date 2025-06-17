@@ -27,7 +27,7 @@ The application will automatically load language strings based on the `lang` que
 
 ## Search Plugin
 
-Client-side search queries `/plugins/search.php` which proxies the Shoppi API and caches results in Redis. Results are rendered using Handlebars templates in `js/search.js`.
+Client-side search queries `/plugins/search.php` which proxies the Shoppi API and caches results in Redis. Results are rendered using Handlebars templates in `page/js/search.js`.
 
 ## Hosting
 
