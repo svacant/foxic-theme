@@ -7,7 +7,7 @@ This project provides a PHP front‑end that connects to the Shoppi API in order
 * PHP 7.4 or later
 * [Composer](https://getcomposer.org/) (for vendor libraries)
 * Memcached running locally on port `11211`
-* MySQL database (used by cart/checkout plugins)
+* Redis server (or local file storage) for cart/checkout data
 * A Shoppi account with an active store
 
 ## Installation
@@ -16,11 +16,11 @@ This project provides a PHP front‑end that connects to the Shoppi API in order
 2. Copy `.env.example` to `.env` and set required variables:
    - `STRIPE_SECRET_KEY` – your Stripe restricted API key
    - `APP_LANG` – default language (e.g. `en`)
-   - `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME` – MySQL connection information
+   - `DB_DRIVER` – `redis` or `local`
    - `MEMCACHED_HOST`, `MEMCACHED_PORT` – Memcached server (optional)
    - `REDIS_HOST`, `REDIS_PORT` – Redis server (optional)
 3. Configure your web server to serve the project root and enable URL rewriting as provided in `.htaccess`.
-4. Ensure Memcached, Redis and MySQL are running and accessible if configured.
+4. Ensure Memcached and Redis are running and accessible if configured.
 5. Point the domain configured in Shoppi to this installation.
 
 ## Usage
