@@ -353,14 +353,8 @@ $keywords = 'cart,checkout,system';
             });
 
             $.when(...promises).done(function () {
-                $.post('/plugins/cart/ajax/placeOrder.php', []).then(response => {
-                    $.post('/plugins/cart/ajax/saveOrder.php', {
-                        'shoppiOrderId': '123' //TODO: replace me
-                    }).then(response => {
-                        processingModal.close();
-                        window.location = '/checkout.html';
-                    })
-                });
+                processingModal.close();
+                window.location = '/checkout.html';
             });
         });
 

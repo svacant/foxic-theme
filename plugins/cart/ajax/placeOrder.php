@@ -23,6 +23,9 @@ if (!$email) {
 
 $shippingAddress = getShippingAddress($con);
 
+// Shipping cost might be provided by the client. Default to 0 when missing.
+$ship_cost = isset($_POST['ship_cost']) ? $_POST['ship_cost'] : 0;
+
 if (!$shippingAddress) {
     echo json_encode(['error' => 'Could not retrieve shipping address.']);
     return;
