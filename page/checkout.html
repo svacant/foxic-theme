@@ -822,7 +822,7 @@
                 country: $("#shippingCountry").val()
             };
 
-            $.get('https://www.shoppiapp.com/api/orders/ship_cost/json', orderShipCostPayload, data => {
+            $.get('/plugins/cart/ajax/getOrderShipCost.php', orderShipCostPayload, data => {
                 shippingCosts = data.feedback;
                 $("#checkoutShippingCosts").html(`€ ${data.feedback}.00`);
                 calculateTotalCartValue();
@@ -834,7 +834,7 @@
                 country: $("#billingCountry").val()
             };
 
-            $.get('https://www.shoppiapp.com/api/orders/tax/json', payload, data => {
+            $.get('/plugins/cart/ajax/getOrderTaxRate.php', payload, data => {
                 taxPercentage = data.feedback;
                 calculateTotalCartValue();
             });
