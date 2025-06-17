@@ -8,6 +8,10 @@ $_SESSION['lang'] = $lang;
 $mem_var = new Memcached();
 $mem_var->addServer("127.0.0.1", 11211);
 
+// Shoppi page identifier used for API requests. Change this value when testing
+// different storefront configurations locally.
+$shoppiPageId = 10587;
+
 class data{
 
    var $title;
@@ -49,7 +53,7 @@ class data{
          $this->lang = $_SESSION['lang'];
 
 		
-			$prefix = md5($_SERVER["SERVER_NAME"]); //based on host
+                        $prefix = md5($_SERVER["SERVER_NAME"]."_".$shoppiPageId); //based on host and pageId
 			
 
 			$opts = array(
@@ -67,11 +71,11 @@ class data{
 			$info = $mem_var->get($prefix);
 			
 			
-			if(!$info){
-				$info = $this->request("https://www.shoppiapp.com/api/website/info/json");
+                        if(!$info){
+                                $info = $this->request("https://www.shoppiapp.com/api/website/info/json?pageId=".$shoppiPageId);
 
-				$mem_var->set($prefix, $info);
-			}
+                                $mem_var->set($prefix, $info);
+                        }
 			
 		
 			$array = (array)$info->info;

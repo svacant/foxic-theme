@@ -139,7 +139,7 @@ $title = "Pay your order";
 
         $("#orderId").html(orderId);
 
-        $.get(`https://www.shoppiapp.com/api/orders/view/json?id=${orderId}`, async response => {
+        $.get(`/plugins/cart/ajax/getOrderDetails.php?id=${orderId}`, async response => {
             $("#orderStatus").html(response.status);
 
             if (response.status === "pending") {

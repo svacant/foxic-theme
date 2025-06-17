@@ -1,0 +1,52 @@
+<!--
+$title = 'Search';
+$keywords = 'search,products';
+-->
+<div class="page-content">
+    <div class="holder breadcrumbs-wrap mt-0">
+        <div class="container">
+            <ul class="breadcrumbs">
+                <li><a href="/">Home</a></li>
+                <li><span>Search</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="holder">
+        <div class="container">
+            <form id="search-form" class="form-inline mb-3">
+                <input id="search-field" type="text" class="form-control mr-2" placeholder="Search...">
+                <input id="min-price" type="number" class="form-control mr-2" placeholder="Min price">
+                <input id="max-price" type="number" class="form-control mr-2" placeholder="Max price">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <div id="search-results" class="row"></div>
+        </div>
+    </div>
+</div>
+
+<script id="search-product" type="text/x-handlebars-template">
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="prd prd--style2 prd-labels--max prd-labels-shadow prd-w">
+            <div class="prd-inside">
+                <div class="prd-img-area">
+                    <a href="{{link}}" class="prd-img image-hover-scale image-container">
+                        <img src="{{photo}}" alt="{{title}}" class="js-prd-img lazyload fade-up">
+                    </a>
+                </div>
+                <div class="prd-info">
+                    <div class="prd-info-wrap">
+                        <div class="prd-tag">{{category}}</div>
+                        <h2 class="prd-title"><a href="{{link}}">{{title}}</a></h2>
+                    </div>
+                    <div class="prd-hovers">
+                        <div class="prd-price">
+                            <div class="price-new">{{price}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script src="/js/search.js"></script>

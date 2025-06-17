@@ -9,7 +9,6 @@ $cart_cache = $mem_var->get("cart_" . $sess);
 $cart = $cart_cache['cart'];
 
 $email = getUserEmail($con);
-$pageId = 52; //how to get the id, maybe session?
 
 $items = [];
 foreach ($cart as $itemId => $item) {
@@ -23,6 +22,9 @@ if (!$email) {
 
 $shippingAddress = getShippingAddress($con);
 
+// Shipping cost might be provided by the client. Default to 0 when missing.
+$ship_cost = isset($_POST['ship_cost']) ? $_POST['ship_cost'] : 0;
+
 if (!$shippingAddress) {
     echo json_encode(['error' => 'Could not retrieve shipping address.']);
     return;
@@ -32,7 +34,6 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://www.shoppiapp.com/api/checkout/placeAll/json");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-    'pageId' => $pageId,
     'items' => $items,
     'email' => $email,
     'name' => $shippingAddress['first_name'],

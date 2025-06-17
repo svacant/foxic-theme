@@ -353,14 +353,8 @@ $keywords = 'cart,checkout,system';
             });
 
             $.when(...promises).done(function () {
-                $.post('/plugins/cart/ajax/placeOrder.php', []).then(response => {
-                    $.post('/plugins/cart/ajax/saveOrder.php', {
-                        'shoppiOrderId': '123' //TODO: replace me
-                    }).then(response => {
-                        processingModal.close();
-                        window.location = '/checkout.html';
-                    })
-                });
+                processingModal.close();
+                window.location = '/checkout.html';
             });
         });
 
@@ -386,7 +380,7 @@ $keywords = 'cart,checkout,system';
                 country: $("#shippingCountry").val()
             };
 
-            $.get('https://www.shoppiapp.com/api/orders/ship_cost/json', orderShipCostPayload, data => {
+            $.get('/plugins/cart/ajax/getOrderShipCost.php', orderShipCostPayload, data => {
                 shippingCosts = data.feedback;
                 $("#cartShippingCosts").html(`€ ${data.feedback}.00`);
                 calculateTotalCartValue();
@@ -398,7 +392,7 @@ $keywords = 'cart,checkout,system';
                 country: $("#shippingCountry").val()
             };
 
-            $.get('https://www.shoppiapp.com/api/orders/tax/json', payload, data => {
+            $.get('/plugins/cart/ajax/getOrderTaxRate.php', payload, data => {
                 taxPercentage = data.feedback;
                 calculateTotalCartValue();
             });

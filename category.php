@@ -99,7 +99,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 	>
 
 </head>
-<body class="template-collection has-smround-btns has-loader-bg equal-height has-sm-container">
+<body class="template-collection has-smround-btns has-loader-bg equal-height has-sm-container" data-pageid="<?php echo $shoppiPageId; ?>">
 <style>
     .top_custom_nav {
         color: #fff !important;

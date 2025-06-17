@@ -67,7 +67,7 @@ if(file_exists($file)){
         <link href="css/header.css" rel="stylesheet"/>
 
     </head>
-    <body class="has-smround-btns has-loader-bg equal-height">
+    <body class="has-smround-btns has-loader-bg equal-height" data-pageid="<?php echo $shoppiPageId; ?>">
     	<style>
     		.top_custom_nav {
     			color: #fff !important;
