@@ -10,7 +10,7 @@ $_SESSION['lang'] = $lang;
 
 $translations = loadTranslations($lang);
 
-$cache = getRedisClient();
+$cache = getMemcacheClient();
 
 // Shoppi page identifier used for API requests. Change this value when testing
 // different storefront configurations locally.
