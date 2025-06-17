@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "title": "New Arrival 1",
+      "link": "/product.php?clear_title=new-arrival-1",
+      "photo": "/images/sample3.jpg",
+      "category": "Category",
+      "price": "20.00",
+      "price_format": "$20.00",
+      "text": "Latest"
+    },
+    {
+      "title": "New Arrival 2",
+      "link": "/product.php?clear_title=new-arrival-2",
+      "photo": "/images/sample4.jpg",
+      "category": "Category",
+      "price": "22.00",
+      "price_format": "$22.00",
+      "text": "Hot"
+    }
+  ]
+}

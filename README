@@ -1,5 +1,13 @@
-To make this website works, you need to create an account on Shoppi, open a store and associate your domain.
-Then upload your files in the same domain you declared on the Shoppi's website.
+This project contains a simplified e‑commerce template.
 
-Do you need hosting?
-https://www.shoppi.cloud
+### Local setup
+
+1. Upload the repository to a PHP capable web server.
+2. Ensure the `data` directory is writable so caching works.
+3. If the remote Shoppi API is unreachable the application falls back to the
+   sample data located in `data/local_data.json` and the product lists under the
+   `data` directory.
+
+The original project required a Shoppi account. For demonstration purposes this
+repository now includes example JSON files so the pages can render without an
+external account.

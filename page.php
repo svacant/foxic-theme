@@ -1,4 +1,4 @@
-<?
+<?php
 include "data.php";
 include "functions.php";
 
@@ -73,7 +73,7 @@ if(file_exists($file)){
 			    padding-left: 5px !important;
     		}
     	</style>
- 		<? include "header.php"; ?>
+                <?php include "header.php"; ?>
  		
  		   	
          <div class="page-content">
@@ -84,4 +84,4 @@ if(file_exists($file)){
 		?>
 		</div>
 </div>
-<? include"footer.php"; ?>
+<?php include "footer.php"; ?>

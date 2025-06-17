@@ -1,4 +1,4 @@
-<?
+<?php
 include "data.php";
 
 $category = $_SERVER['QUERY_STRING'];
@@ -115,7 +115,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
         padding-left: 5px !important;
     }
 </style>
-<? include "header.php"; ?>
+<?php include "header.php"; ?>
 <div class="page-content">
 	<div class="holder breadcrumbs-wrap mt-0">
 		<div class="container">
@@ -4347,5 +4347,5 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 <!--</div>-->
 <script src="/js/category.js"></script>
 <script src="/js/cart.js"></script>
-<? include "footer.php"; ?>
-<? include "templates/category/category-product.php"; ?>
+<?php include "footer.php"; ?>
+<?php include "templates/category/category-product.php"; ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 include "data.php";
 
 ?>
@@ -41,7 +41,7 @@ include "data.php";
     		}
     	</style>
     	
-<? include "header.php"; ?>
+<?php include "header.php"; ?>
 
         <div class="page-content">
             <!-- Main Slider -->
@@ -77,7 +77,7 @@ include "data.php";
                                     </div>
                                 </div>
                             </div>
-						<? } ?>
+                                                <?php } ?>
                         </div>
                         <div class="bnslider-arrows container-fluid">
                             <div></div>
@@ -245,13 +245,13 @@ include "data.php";
 								<img class="lazyload lazypreload" data-src="/fotos/marken/<?=$file;?>" data-sizes="auto" alt="Brand">
 							</div>
 						</li>
-						<? } ?>
+                                                <?php } ?>
 					</ul>
 				</div>
 			</div>
 
         </div>
-<? include"footer.php"; ?>
+<?php include "footer.php"; ?>
 
 		<script id="list-new-products" type="text/x-handlebars-template">
 				<div class="prd prd--style2 prd-labels--max prd-labels-shadow prd-w">

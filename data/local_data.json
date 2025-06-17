@@ -1,0 +1,8 @@
+{
+  "info": {
+    "title": "Demo Store",
+    "logo": "/images/logo.png",
+    "cover": "/images/cover.jpg",
+    "email": "demo@example.com"
+  }
+}

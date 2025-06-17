@@ -1,6 +1,6 @@
 
 
-	var context = $.get("https://www.shoppiapp.com/api/website/products/json?limit=8&filter=best",function(data){
+        var context = $.get("https://www.shoppiapp.com/api/website/products/json?limit=8&filter=best",function(data){
 
 	// Retrieve the template data from the HTML (jQuery is used here).
 	var template = $('#list-products').html();
@@ -15,11 +15,20 @@
 			// Insert the HTML code into the page
 			$('#products-best-sellers').append(html);	
 		});
-	},'json');
+        },'json').fail(function(){
+            $.get('/data/products_best.json', function(data){
+                var template = $('#list-products').html();
+                $.each(data.products, function(i){
+                    var templateScript = Handlebars.compile(template);
+                    var html = templateScript(data.products[i]);
+                    $('#products-best-sellers').append(html);
+                });
+            },'json');
+        });
 	
 
 
-	var context = $.get("https://www.shoppiapp.com/api/website/products/json?limit=8&filter=new",function(data){
+        var context = $.get("https://www.shoppiapp.com/api/website/products/json?limit=8&filter=new",function(data){
 
 	// Retrieve the template data from the HTML (jQuery is used here).
 	var template = $('#list-new-products').html();
@@ -34,6 +43,15 @@
 			// Insert the HTML code into the page
 			$('#products-new-arrivals').append(html);	
 		});
-	},'json');
+        },'json').fail(function(){
+            $.get('/data/products_new.json', function(data){
+                var template = $('#list-new-products').html();
+                $.each(data.products, function(i){
+                    var templateScript = Handlebars.compile(template);
+                    var html = templateScript(data.products[i]);
+                    $('#products-new-arrivals').append(html);
+                });
+            },'json');
+        });
 
 

@@ -58,17 +58,23 @@ class data{
 			$context = stream_context_create($opts);
 
 	
-			$info = $mem_var->get($prefix);
-			
-			
-			if(!$info){
-				$info = $this->request("https://www.shoppiapp.com/api/website/info/json");
+                        $info = $mem_var->get($prefix);
 
-				$mem_var->set($prefix, $info);
-			}
+                        if(!$info){
+                                $info = $this->request("https://www.shoppiapp.com/api/website/info/json");
+
+                                if(!$info){
+                                        $localFile = __DIR__ . '/data/local_data.json';
+                                        if(file_exists($localFile)){
+                                                $info = json_decode(file_get_contents($localFile));
+                                        }
+                                }
+
+                                $mem_var->set($prefix, $info);
+                        }
 			
 		
-			$array = (array)$info->info;
+                        $array = isset($info->info) ? (array)$info->info : [];
 			
 			foreach($array as $name=>$data){
 				$this->set($name, $data);			

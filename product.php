@@ -1,4 +1,4 @@
-<?
+<?php
 include "data.php";
 
 $clear_title = $_GET['clear_title'];
@@ -59,7 +59,7 @@ if(!$product=$mem_var->get($clear_title)){
 			    padding-left: 5px !important;
     		}
     	</style>
- 		<? include "header.php"; ?>
+                <?php include "header.php"; ?>
  		
  		   	
 <div class="page-content">
@@ -228,4 +228,4 @@ if(!$product=$mem_var->get($clear_title)){
         </div>
 	    <script src="/js/cart.js"></script>   
 	    	
-<? include"footer.php"; ?>
+<?php include "footer.php"; ?>
