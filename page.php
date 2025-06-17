@@ -1,6 +1,7 @@
-<?
+<?php
 include "data.php";
 include "functions.php";
+$lang = $_SESSION['lang'];
 
 $clear_title = $_GET['clear_title'];
 $file = "./page/".$clear_title.".html";
@@ -8,16 +9,24 @@ $file = "./page/".$clear_title.".html";
 if(file_exists($file)){
 	$file = file_get_contents($file);
 
-	$page_vars = config_page($file);
-	eval(strip_tags($page_vars));
+        $page_vars = config_page($file);
+        $config = [];
+        foreach (explode("\n", strip_tags($page_vars)) as $line) {
+            if (preg_match('/\$(\w+)\s*=\s*(.*)/', trim($line), $m)) {
+                $name = $m[1];
+                $val = trim($m[2], "'\"; ");
+                $config[$name] = $val;
+            }
+        }
 
-	$page->title = $title;
-	$page->keywords = $keywords;
-	$page->content = $file;
-		
-	if($login == 'required'){
-		if(!$_SESSION['uid']){ header("Location: /"); };
-	}
+        $page->title = $config['title'] ?? '';
+        $page->keywords = $config['keywords'] ?? '';
+        $page->content = $file;
+        $login = $config['login'] ?? '';
+
+        if($login == 'required'){
+                if(!$_SESSION['uid']){ header("Location: /"); };
+        }
 }else{
 
 	$cachefile = $_SERVER['SERVER_NAME'].$clear_title;
@@ -35,7 +44,7 @@ if(file_exists($file)){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?=$lang?>">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,7 +52,7 @@ if(file_exists($file)){
         <meta name="description" content="<?=$page->description;?>">
         <meta name="keywords" content="<?=$page->keywords;?>">
         <meta name="author" content="">
-        <title><? echo $page->title; ?></title>
+        <title><?php echo $page->title; ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
         <!-- Vendor CSS -->
         <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
@@ -73,7 +82,7 @@ if(file_exists($file)){
 			    padding-left: 5px !important;
     		}
     	</style>
- 		<? include "header.php"; ?>
+ 		<?php include "header.php"; ?>
  		
  		   	
          <div class="page-content">
@@ -84,4 +93,4 @@ if(file_exists($file)){
 		?>
 		</div>
 </div>
-<? include"footer.php"; ?>
+<?php include"footer.php"; ?>

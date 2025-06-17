@@ -1,5 +1,6 @@
-<?
+<?php
 include "data.php";
+$lang = $_SESSION['lang'];
 
 $clear_title = $_GET['clear_title'];
 
@@ -17,7 +18,7 @@ if(!$product=$mem_var->get($clear_title)){
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?=$lang?>">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +29,7 @@ if(!$product=$mem_var->get($clear_title)){
         <meta property="og:title" content="<?php echo $product->title;?>" />
 		<meta property="og:type" content="product" />
 		<meta property="og:image" content="<?php echo $product->photo;?>" />
-        <title><? echo $product->title; ?></title>
+        <title><?php echo $product->title; ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
         <!-- Vendor CSS -->
         <link href="/css/vendor/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +60,7 @@ if(!$product=$mem_var->get($clear_title)){
 			    padding-left: 5px !important;
     		}
     	</style>
- 		<? include "header.php"; ?>
+ 		<?php include "header.php"; ?>
  		
  		   	
 <div class="page-content">
@@ -67,9 +68,9 @@ if(!$product=$mem_var->get($clear_title)){
                 <div class="container">
                     <ul class="breadcrumbs">
 						<li><?=$product->category;?></li>
-						<? foreach(explode(",", $product->keywords) as $keyword){ ?>
+						<?php foreach(explode(",", $product->keywords) as $keyword){ ?>
                         <li><a href="/"><?=$keyword;?></a></li>
-                        <? } ?>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -101,7 +102,7 @@ if(!$product=$mem_var->get($clear_title)){
 	<div class="prd-block_main-image-holder" id="prdMainImage">
 		<div class="product-main-carousel js-product-main-carousel" data-zoom-position="inner">
 			<div data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$product->photo_hires;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$product->photo_hires;?>"/></span></div>
-			<? foreach($product->photos as $photo){?>
+			<?php foreach($product->photos as $photo){?>
 				<div data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$photo;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$photo;?>"/></span></div>
 			<?}?>
 		</div>
@@ -114,9 +115,9 @@ if(!$product=$mem_var->get($clear_title)){
 	<div class="product-previews-carousel js-product-previews-carousel">
 		<a href="#" data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$product->photo;?>" class="lazyload fade-up" alt=""/></span></a>
 		
-		<? foreach($product->photos as $photo){?>
+		<?php foreach($product->photos as $photo){?>
 			<a href="#" data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$photo;?>" class="lazyload fade-up" alt=""/></span></a>
-		<? }?>
+		<?php }?>
 		</div>
 </div>
 <!-- /Product Gallery -->
@@ -228,4 +229,4 @@ if(!$product=$mem_var->get($clear_title)){
         </div>
 	    <script src="/js/cart.js"></script>   
 	    	
-<? include"footer.php"; ?>
+<?php include"footer.php"; ?>
