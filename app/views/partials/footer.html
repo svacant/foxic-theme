@@ -326,7 +326,27 @@
             return `/category/${found[0]}/${categoryId}`;
         });
 
-        var context = $.get("https://www.shoppiapp.com/api/website/listCategories/json?pageId=[[shoppiPageId]]&limit=20", function (data) {
+        const CATEGORIES_KEY = 'categories_cache';
+        const CATEGORIES_TIME_KEY = 'categories_cache_time';
+        const CACHE_DURATION = 3 * 60 * 1000; // 3 minutes
+
+        const loadCategories = (cb) => {
+            const cached = window.localStorage.getItem(CATEGORIES_KEY);
+            const cachedTime = window.localStorage.getItem(CATEGORIES_TIME_KEY);
+
+            if (cached && cachedTime && (Date.now() - parseInt(cachedTime, 10) < CACHE_DURATION)) {
+                cb(JSON.parse(cached));
+                return;
+            }
+
+            $.get('https://www.shoppiapp.com/api/website/listCategories/json?pageId=[[shoppiPageId]]&limit=20', function (data) {
+                window.localStorage.setItem(CATEGORIES_KEY, JSON.stringify(data));
+                window.localStorage.setItem(CATEGORIES_TIME_KEY, Date.now().toString());
+                cb(data);
+            }, 'json');
+        };
+
+        loadCategories(function (data) {
 
             /*
              Retrieve the template data from the HTML (jQuery is used here).
@@ -334,7 +354,6 @@
             var template = $('#show-category').html();
 
             allCategories = data.categories;
-            window.localStorage.setItem('categories', JSON.stringify(allCategories));
             const headerCategories = data.categories.slice(0, 6);
 
             const recursive = (parentCategoryLink, categories) => {
@@ -392,7 +411,7 @@
                     "height": $('.nav-wrapper .nav-level-1').outerHeight()
                 });
             });
-        }, 'json');
+        });
 
     });
 
