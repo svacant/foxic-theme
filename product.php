@@ -1,4 +1,4 @@
-<?
+<?php
 include "data.php";
 
 $clear_title = $_GET['clear_title'];

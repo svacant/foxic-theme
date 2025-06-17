@@ -1,4 +1,4 @@
-<?
+<?php
 include "data.php";
 
 $category = $_SERVER['QUERY_STRING'];

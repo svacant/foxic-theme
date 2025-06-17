@@ -1,23 +1,27 @@
-<?
+<?php
 include "data.php";
 include "functions.php";
 
 $clear_title = $_GET['clear_title'];
-$file = "./page/".$clear_title.".html";
+$file = "./page/" . $clear_title . ".html";
 
-if(file_exists($file)){
-	$file = file_get_contents($file);
+$page = new stdClass();
 
-	$page_vars = config_page($file);
-	eval(strip_tags($page_vars));
+if (file_exists($file)) {
+    $fileContent = file_get_contents($file);
 
-	$page->title = $title;
-	$page->keywords = $keywords;
-	$page->content = $file;
-		
-	if($login == 'required'){
-		if(!$_SESSION['uid']){ header("Location: /"); };
-	}
+    $pageVars = config_page($fileContent);
+
+    $page->title = $pageVars['title'] ?? '';
+    $page->keywords = $pageVars['keywords'] ?? '';
+    $login = $pageVars['login'] ?? '';
+    $page->content = $fileContent;
+
+    if ($login === 'required') {
+        if (!$_SESSION['uid']) {
+            header("Location: /");
+        }
+    }
 }else{
 
 	$cachefile = $_SERVER['SERVER_NAME'].$clear_title;
