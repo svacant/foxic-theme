@@ -80,6 +80,21 @@
                 <div class="col-lg col-xl">
                     <div class="footer-block collapsed-mobile">
                         <div class="title">
+                            <h4>Sections</h4>
+                            <span class="toggle-arrow"><span></span><span></span></span>
+                        </div>
+                        <div class="collapsed-content">
+                            <ul>
+                                [[#sections]]
+                                <li><a href="/page/[[clear_title]].html">[[title]]</a></li>
+                                [[/sections]]
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg col-xl">
+                    <div class="footer-block collapsed-mobile">
+                        <div class="title">
                             <h4>Safe payments</h4>
                             <span class="toggle-arrow"><span></span><span></span></span>
                         </div>
@@ -256,11 +271,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </li>
-
-</script>
-
 <script id="show-category-mobile" type="text/x-handlebars-template">
     <li>
         <a href="#">{{category}}<span class="arrow"><i class="icon-angle-right"></i></span></a>
@@ -286,6 +296,7 @@
         </ul>
     </li>
 </script>
+
 
 <script type="text/javascript">
     $(document).ready(function () {

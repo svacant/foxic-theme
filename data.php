@@ -80,14 +80,28 @@ class data{
 		
 			$array = (array)$info->info;
 			
-			foreach($array as $name=>$data){
-				$this->set($name, $data);			
-			}
+                       foreach($array as $name=>$data){
+                               $this->set($name, $data);
+                       }
 
-        
-		}
-        
-        
+
+                }
+
+        public function sections() {
+            global $cache, $shoppiPageId;
+            $key = 'sections_' . md5($_SERVER['SERVER_NAME'] . '_' . $shoppiPageId . '_' . $this->lang);
+            $sections = $cache->get($key);
+            if (!$sections) {
+                $sections = $this->request('https://www.shoppiapp.com/api/website/sections/json?pageId=' . $shoppiPageId);
+                if ($sections) {
+                    $cache->set($key, $sections, 3600);
+                }
+            }
+
+            return $sections ? (array)$sections->sections : [];
+        }
+
+
      }
 
 
