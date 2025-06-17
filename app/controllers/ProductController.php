@@ -25,6 +25,7 @@ class ProductController
             'data'        => $data,
             'product'     => $product,
             'keywords'    => $keywords,
+            'sections'    => $data->sections(),
             'shoppiPageId'=> $shoppiPageId,
             'year'        => date('Y')
         ]);

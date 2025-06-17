@@ -13,6 +13,7 @@ class PageController
         View::render('page', [
             'data'        => $data,
             'page'        => $page,
+            'sections'    => $data->sections(),
             'shoppiPageId'=> $shoppiPageId,
             'year'        => date('Y')
         ]);

@@ -19,6 +19,7 @@ class HomeController
 
         View::render('home', [
             'data'        => $data,
+            'sections'    => $data->sections(),
             'shoppiPageId'=> $shoppiPageId,
             'sliderFiles' => $sliderFiles,
             'brands'      => $brandFiles,
