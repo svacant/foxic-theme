@@ -1,5 +1,6 @@
 <?php
-include "data.php";
+require_once __DIR__ . '/config.php';
+require_once "data.php";
 $lang = $_SESSION['lang'];
 
 ?>

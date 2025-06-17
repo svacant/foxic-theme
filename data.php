@@ -1,12 +1,12 @@
 <?php
+require_once __DIR__ . '/config.php';
 //include "database.php";
 session_start();
 
-$lang = isset($_GET['lang']) ? $_GET['lang'] : ($_SESSION['lang'] ?? getenv('APP_LANG') ?: 'en');
+$lang = isset($_GET['lang']) ? $_GET['lang'] : ($_SESSION['lang'] ?? envVar('APP_LANG', 'en'));
 $_SESSION['lang'] = $lang;
 
-$mem_var = new Memcached();
-$mem_var->addServer("127.0.0.1", 11211);
+$mem_var = getMemcached();
 
 // Shoppi page identifier used for API requests. Change this value when testing
 // different storefront configurations locally.
