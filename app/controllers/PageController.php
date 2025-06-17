@@ -6,7 +6,7 @@ class PageController
 {
     public function show(string $clearTitle): void
     {
-        global $data, $shoppiPageId;
+        global $data, $shoppiPageId, $translations, $lang;
 
         $page = $data->request('https://www.shoppiapp.com/api/website/page/json?clear_title=' . $clearTitle);
 
@@ -15,7 +15,11 @@ class PageController
             'page'        => $page,
             'sections'    => $data->sections(),
             'shoppiPageId'=> $shoppiPageId,
-            'year'        => date('Y')
+            'year'        => date('Y'),
+            'trans'       => $translations,
+            'selected_en' => $lang === 'en' ? 'selected' : '',
+            'selected_de' => $lang === 'de' ? 'selected' : '',
+            'selected_it' => $lang === 'it' ? 'selected' : ''
         ]);
     }
 }

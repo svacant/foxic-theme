@@ -3,8 +3,12 @@ require_once __DIR__ . '/config.php';
 //include "database.php";
 session_start();
 
+require_once __DIR__ . '/app/core/Lang.php';
+
 $lang = isset($_GET['lang']) ? $_GET['lang'] : ($_SESSION['lang'] ?? envVar('APP_LANG', 'en'));
 $_SESSION['lang'] = $lang;
+
+$translations = loadTranslations($lang);
 
 $cache = getRedisClient();
 

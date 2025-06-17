@@ -1,10 +1,21 @@
 <header class="site-header">
     <nav>
-        <a href="/">Home</a>
-        <a href="/page/cart.html">Cart</a>
+        <a href="/">[[trans.home]]</a>
+        <a href="/page/cart.html">[[trans.cart]]</a>
         <div class="lang-switcher">
-            <a href="?lang=en">EN</a> |
-            <a href="?lang=it">IT</a>
+            <select id="langSelect">
+                <option value="en" [[selected_en]]>[[trans.english]]</option>
+                <option value="de" [[selected_de]]>[[trans.german]]</option>
+                <option value="it" [[selected_it]]>[[trans.italian]]</option>
+            </select>
         </div>
     </nav>
 </header>
+<script>
+document.getElementById('langSelect').addEventListener('change', function () {
+    var lang = this.value;
+    var url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.location.href = url.toString();
+});
+</script>

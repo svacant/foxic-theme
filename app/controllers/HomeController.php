@@ -6,7 +6,7 @@ class HomeController
 {
     public function index(): void
     {
-        global $data, $shoppiPageId;
+        global $data, $shoppiPageId, $translations, $lang;
 
         $sliderPath = './fotos/slider/';
         $sliderFiles = array_values(array_diff(scandir($sliderPath), ['.', '..']));
@@ -23,7 +23,11 @@ class HomeController
             'shoppiPageId'=> $shoppiPageId,
             'sliderFiles' => $sliderFiles,
             'brands'      => $brandFiles,
-            'year'        => date('Y')
+            'year'        => date('Y'),
+            'trans'       => $translations,
+            'selected_en' => $lang === 'en' ? 'selected' : '',
+            'selected_de' => $lang === 'de' ? 'selected' : '',
+            'selected_it' => $lang === 'it' ? 'selected' : ''
         ]);
     }
 }

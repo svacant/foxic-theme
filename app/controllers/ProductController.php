@@ -6,7 +6,7 @@ class ProductController
 {
     public function show(string $clearTitle): void
     {
-        global $cache, $data, $shoppiPageId;
+        global $cache, $data, $shoppiPageId, $translations, $lang;
 
         if (!$product = $cache->get($clearTitle)) {
             $product = $data->request('https://www.shoppiapp.com/api/website/product/json?clear_title=' . $clearTitle);
@@ -27,7 +27,11 @@ class ProductController
             'keywords'    => $keywords,
             'sections'    => $data->sections(),
             'shoppiPageId'=> $shoppiPageId,
-            'year'        => date('Y')
+            'year'        => date('Y'),
+            'trans'       => $translations,
+            'selected_en' => $lang === 'en' ? 'selected' : '',
+            'selected_de' => $lang === 'de' ? 'selected' : '',
+            'selected_it' => $lang === 'it' ? 'selected' : ''
         ]);
     }
 }
