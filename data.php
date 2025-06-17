@@ -6,7 +6,7 @@ session_start();
 $lang = isset($_GET['lang']) ? $_GET['lang'] : ($_SESSION['lang'] ?? envVar('APP_LANG', 'en'));
 $_SESSION['lang'] = $lang;
 
-$mem_var = getMemcached();
+$cache = getRedisClient();
 
 // Shoppi page identifier used for API requests. Change this value when testing
 // different storefront configurations locally.
@@ -49,7 +49,7 @@ class data{
 
     
      function __construct() {
-         global $db, $mem_var;
+        global $db, $cache;
          $this->lang = $_SESSION['lang'];
 
 		
@@ -68,13 +68,13 @@ class data{
 			$context = stream_context_create($opts);
 
 	
-			$info = $mem_var->get($prefix);
+                        $info = $cache->get($prefix);
 			
 			
                         if(!$info){
                                 $info = $this->request("https://www.shoppiapp.com/api/website/info/json?pageId=".$shoppiPageId);
 
-                                $mem_var->set($prefix, $info);
+                                $cache->set($prefix, $info);
                         }
 			
 		

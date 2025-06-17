@@ -1,18 +1,17 @@
 <?php
-
 include "../../../data.php";
-include '../../db/db.php';
+include '../../db/functions.php';
 
 $sess = session_id();
-$cart_cache = $mem_var->get("cart_" . $sess);
+$cart_cache = $cache->get("cart_" . $sess);
 
 $cart = $cart_cache['cart'];
 
-$email = getUserEmail($con);
+$email = db_get_user_email((int)$_SESSION['uid']);
 
 $items = [];
 foreach ($cart as $itemId => $item) {
-    $items['products.'.$itemId] = $item['qty'];
+    $items['products.' . $itemId] = $item['qty'];
 }
 
 if (!$email) {
@@ -20,7 +19,7 @@ if (!$email) {
     return;
 }
 
-$shippingAddress = getShippingAddress($con);
+$shippingAddress = db_get_shipping_address((int)$_SESSION['uid']);
 
 // Shipping cost might be provided by the client. Default to 0 when missing.
 $ship_cost = isset($_POST['ship_cost']) ? $_POST['ship_cost'] : 0;
@@ -40,8 +39,8 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'surname' => $shippingAddress['last_name'],
     'address' => $shippingAddress['address'],
     'address2' => $shippingAddress['address'],
-    'ship_cost'=>$ship_cost,
-    'city' => $shippingAddress['city'],   
+    'ship_cost' => $ship_cost,
+    'city' => $shippingAddress['city'],
     'country' => $shippingAddress['country'],
 ]));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -51,35 +50,3 @@ curl_close($ch);
 
 echo $response;
 return;
-
-function getUserEmail($con)
-{
-    $userId = (int)$_SESSION['uid'];
-    $query = "SELECT `email` from `users` where `id` = $userId";
-
-    $result = mysqli_query($con, $query);
-    $rows = mysqli_num_rows($result);
-
-    if ($rows >= 1) {
-        while ($row = $result->fetch_assoc()) {
-            return $row['email'];
-        }
-    }
-
-    return "";
-}
-
-function getShippingAddress($con)
-{
-    $userId = (int)$_SESSION['uid'];
-    $query = "SELECT * from `addresses` where `user_id` = $userId and `is_billing_address` = 0";
-
-    $result = mysqli_query($con, $query);
-    $rows = mysqli_num_rows($result);
-
-    while ($row = $result->fetch_assoc()) {
-        return $row;
-    }
-
-    return [];
-}
