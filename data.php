@@ -2,15 +2,19 @@
 //include "database.php";
 session_start();
 
+$lang = isset($_GET['lang']) ? $_GET['lang'] : ($_SESSION['lang'] ?? getenv('APP_LANG') ?: 'en');
+$_SESSION['lang'] = $lang;
+
 $mem_var = new Memcached();
 $mem_var->addServer("127.0.0.1", 11211);
 
 class data{
-    
+
    var $title;
    var $logo;
    var $cover;
    var $email;
+   var $lang;
    
    function set($name,$value){
 	   
@@ -20,11 +24,12 @@ class data{
    }
    
    function request($url){
+        $lang = $this->lang;
 	   
 			$opts = array(
 			  'http'=>array(
 				'method'=>"GET",
-				'header'=>"Accept-language: en\r\n" .
+                                'header'=>"Accept-language: " . $this->lang . "\r\n" .
 						  "Cookie: foo=bar\r\n" . 
 						 "Referer: https://".$_SERVER['SERVER_NAME']."\r\n"
 			  )
@@ -41,6 +46,7 @@ class data{
     
      function __construct() {
          global $db, $mem_var;
+         $this->lang = $_SESSION['lang'];
 
 		
 			$prefix = md5($_SERVER["SERVER_NAME"]); //based on host
@@ -49,7 +55,7 @@ class data{
 			$opts = array(
 			  'http'=>array(
 				'method'=>"GET",
-				'header'=>"Accept-language: en\r\n" .
+                                'header'=>"Accept-language: " . $this->lang . "\r\n" .
 						  "Cookie: foo=bar\r\n" . 
 						 "Referer: http://".$_SERVER['SERVER_NAME']."\r\n"
 			  )

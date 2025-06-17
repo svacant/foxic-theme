@@ -1,5 +1,29 @@
-To make this website works, you need to create an account on Shoppi, open a store and associate your domain.
-Then upload your files in the same domain you declared on the Shoppi's website.
+# Foxic Theme Shoppi Website
 
-Do you need hosting?
-https://www.shoppi.cloud
+This project provides a PHP front‑end that connects to the Shoppi API in order to build a multi‑language e‑commerce website.
+
+## Prerequisites
+
+* PHP 7.4 or later
+* [Composer](https://getcomposer.org/) (for vendor libraries)
+* Memcached running locally on port `11211`
+* MySQL database (used by cart/checkout plugins)
+* A Shoppi account with an active store
+
+## Installation
+
+1. Clone the repository and run `composer install` to fetch PHP dependencies.
+2. Copy `.env.example` to `.env` and set required variables:
+   - `STRIPE_SECRET_KEY` – your Stripe restricted API key
+   - `APP_LANG` – default language (e.g. `en`)
+3. Configure your web server to serve the project root and enable URL rewriting as provided in `.htaccess`.
+4. Ensure Memcached and MySQL are running and accessible.
+5. Point the domain configured in Shoppi to this installation.
+
+## Usage
+
+The application will automatically load language strings based on the `lang` query parameter or the value stored in the session. Checkout is handled through the Stripe API using the key configured in the environment file.
+
+## Hosting
+
+Need hosting? Visit [shoppi.cloud](https://www.shoppi.cloud).

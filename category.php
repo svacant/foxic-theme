@@ -1,5 +1,6 @@
-<?
+<?php
 include "data.php";
+$lang = $_SESSION['lang'];
 
 $category = $_SERVER['QUERY_STRING'];
 
@@ -16,7 +17,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 
 
 ?>
-<html lang="en">
+<html lang="<?=$lang?>">
 <head>
 	<meta charset="utf-8">
 	<meta
@@ -51,7 +52,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 			property="og:image"
 			content="<?php echo $product->photo; ?>"
 	/>
-	<title><? echo $category->title; ?></title>
+	<title><?php echo $category->title; ?></title>
 	<link
 			rel="shortcut icon"
 			type="image/x-icon"
@@ -115,7 +116,7 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
         padding-left: 5px !important;
     }
 </style>
-<? include "header.php"; ?>
+<?php include "header.php"; ?>
 <div class="page-content">
 	<div class="holder breadcrumbs-wrap mt-0">
 		<div class="container">
@@ -4347,5 +4348,5 @@ $category = $data->request("https://www.shoppiapp.com/api/website/category/json?
 <!--</div>-->
 <script src="/js/category.js"></script>
 <script src="/js/cart.js"></script>
-<? include "footer.php"; ?>
-<? include "templates/category/category-product.php"; ?>
+<?php include "footer.php"; ?>
+<?php include "templates/category/category-product.php"; ?>

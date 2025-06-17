@@ -6,10 +6,13 @@ require '../vendor/autoload.php';
 $jsonStr = file_get_contents('php://input');
 $jsonObj = json_decode($jsonStr);
 
-//restricted key for marketplace option
-$key = "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";
-
-//$key = "sk_test_51HPDt8JcAjHkQyk3mdutIE5dljNgzn85yNpbkJe8mXGvS3Om4Ral9S85F2L2wxWPtH3tDlvulTbYej3N8rj6bo9A00H0Y5MD4H"; //test
+// Stripe secret key loaded from environment
+$key = getenv('STRIPE_SECRET_KEY');
+if (!$key) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Stripe key not configured']);
+    exit;
+}
 
 // This is a public sample test API key.
 // Don’t submit any personally identifiable information in requests made with this key.

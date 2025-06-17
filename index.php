@@ -1,16 +1,17 @@
-<?
+<?php
 include "data.php";
+$lang = $_SESSION['lang'];
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?=$lang?>">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title><? echo $data->title; ?></title>
+        <title><?php echo $data->title; ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
         <!-- Vendor CSS -->
         <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +42,7 @@ include "data.php";
     		}
     	</style>
     	
-<? include "header.php"; ?>
+<?php include "header.php"; ?>
 
         <div class="page-content">
             <!-- Main Slider -->
@@ -77,7 +78,7 @@ include "data.php";
                                     </div>
                                 </div>
                             </div>
-						<? } ?>
+						<?php } ?>
                         </div>
                         <div class="bnslider-arrows container-fluid">
                             <div></div>
@@ -245,13 +246,13 @@ include "data.php";
 								<img class="lazyload lazypreload" data-src="/fotos/marken/<?=$file;?>" data-sizes="auto" alt="Brand">
 							</div>
 						</li>
-						<? } ?>
+						<?php } ?>
 					</ul>
 				</div>
 			</div>
 
         </div>
-<? include"footer.php"; ?>
+<?php include"footer.php"; ?>
 
 		<script id="list-new-products" type="text/x-handlebars-template">
 				<div class="prd prd--style2 prd-labels--max prd-labels-shadow prd-w">

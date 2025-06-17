@@ -5,7 +5,7 @@
                 <div class="col-lg col-xl last-mobile">
                     <div class="footer-block">
                         <div class="footer-logo">
-                            <a href="index.html"><img class="lazyload fade-up" src="<? echo $data->photo; ?>"
+                            <a href="index.html"><img class="lazyload fade-up" src="<?php echo $data->photo; ?>"
                                                       alt="Logo"></a>
                         </div>
                         <div class="collapsed-content">
