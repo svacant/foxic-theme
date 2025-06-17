@@ -48,20 +48,20 @@ class LocalStore implements DataStore {
     }
 }
 
-class RedisStore implements DataStore {
-    private $redis;
-    public function __construct(Redis $redis) {
-        $this->redis = $redis;
+class MemcacheStore implements DataStore {
+    private $memcache;
+    public function __construct(Memcached $memcache) {
+        $this->memcache = $memcache;
     }
     private function key(string $table): string {
         return 'table:' . $table;
     }
     private function read(string $table): array {
-        $json = $this->redis->get($this->key($table));
+        $json = $this->memcache->get($this->key($table));
         return $json ? json_decode($json, true) : [];
     }
     private function write(string $table, array $rows): void {
-        $this->redis->set($this->key($table), json_encode($rows));
+        $this->memcache->set($this->key($table), json_encode($rows));
     }
     public function insert(string $table, array $row): int {
         $rows = $this->read($table);
@@ -83,9 +83,9 @@ class RedisStore implements DataStore {
 }
 
 function getDataStore(): DataStore {
-    $driver = envVar('DB_DRIVER', 'redis');
+    $driver = envVar('DB_DRIVER', 'memcache');
     if ($driver === 'local') {
         return new LocalStore(__DIR__ . '/data');
     }
-    return new RedisStore(getRedisClient());
+    return new MemcacheStore(getMemcacheClient());
 }
