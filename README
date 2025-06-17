@@ -25,6 +25,10 @@ This project provides a PHP front‑end that connects to the Shoppi API in order
 
 The application will automatically load language strings based on the `lang` query parameter or the value stored in the session. Checkout is handled through the Stripe API using the key configured in the environment file.
 
+### Localization
+
+Translation files live in `app/lang`. Create additional files using the ISO code as the filename (e.g. `fr.php`) returning an associative array of translation keys. The header uses the keys `home` and `cart` for navigation text.
+
 ## Search Plugin
 
 Client-side search queries `/plugins/search.php` which proxies the Shoppi API and caches results in Redis. Results are rendered using Handlebars templates in `page/js/search.js`.
