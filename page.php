@@ -31,14 +31,14 @@ if(file_exists($file)){
 
 	$cachefile = $_SERVER['SERVER_NAME'].$clear_title;
 
-	if(!$page= $mem_var->get($cachefile)){
+        if(!$page= $cache->get($cachefile)){
 		$page = $data->request("https://www.shoppiapp.com/api/website/section/json?clear_title=".$clear_title);
 
 
 		if(!$page->title){
 			Header("Location: /");
 		}else{
-			$mem_var->set($clear_title, $page);
+                        $cache->set($clear_title, $page);
 		}
 	}
 }

@@ -3,7 +3,7 @@ include "../../../data.php";
 include '../../db/functions.php';
 
 $sess = session_id();
-$cart_cache = $mem_var->get("cart_" . $sess);
+$cart_cache = $cache->get("cart_" . $sess);
 
 $cart = $cart_cache['cart'];
 

@@ -5,7 +5,7 @@ $sess = session_id();
 
 
 
-$cart_cache = $mem_var->get("cart_".$sess);
+$cart_cache = $cache->get("cart_".$sess);
 
 
 echo json_encode($cart_cache);

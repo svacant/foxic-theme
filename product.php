@@ -5,14 +5,14 @@ $lang = $_SESSION['lang'];
 $clear_title = $_GET['clear_title'];
 
 
-if(!$product=$mem_var->get($clear_title)){
+if(!$product=$cache->get($clear_title)){
 	$product = $data->request("https://www.shoppiapp.com/api/website/product/json?clear_title=".$clear_title);
 }
 
 	if(!$product->title){
 		Header("Location: /");
 	}else{
-		$mem_var->set($clear_title, $product);
+                $cache->set($clear_title, $product);
 	}
 
 ?>
@@ -104,7 +104,7 @@ if(!$product=$mem_var->get($clear_title)){
 			<div data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$product->photo_hires;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$product->photo_hires;?>"/></span></div>
 			<?php foreach($product->photos as $photo){?>
 				<div data-value=""><span class="prd-img"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="<?=$photo;?>" class="lazyload fade-up elzoom" alt="" data-zoom-image="<?=$photo;?>"/></span></div>
-			<?}?>
+                        <?php } ?>
 		</div>
 	</div>
 	<div class="prd-block_main-image-links">

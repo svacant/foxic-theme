@@ -23,7 +23,7 @@ foreach($cart['cart'] as $productId => $product) {
     }
 }
 
-$cart_cache = $mem_var->get("cart_".$sess);
+$cart_cache = $cache->get("cart_".$sess);
 
 unset($cart_cache['cart'][$id]);
 
@@ -31,7 +31,7 @@ unset($cart_cache['cart'][$id]);
 $cart_data =  array_replace_recursive((array)$cart, (array)$cart_cache);
 
 
-$mem_var->set('cart_'.$sess, $cart_data);
+$cache->set('cart_'.$sess, $cart_data);
 
 print_r($cart_data);
 
