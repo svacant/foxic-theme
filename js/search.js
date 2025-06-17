@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    const shoppiPageId = $('body').data('pageid');
     const params = new URLSearchParams(window.location.search);
     const initialQuery = params.get('q') || '';
     const initialMin = params.get('min') || '';
@@ -13,7 +12,7 @@ $(document).ready(function() {
         const query = $('#search-field').val();
         const min = $('#min-price').val();
         const max = $('#max-price').val();
-        let url = `https://www.shoppiapp.com/api/website/products/json?pageId=${shoppiPageId}&search=${encodeURIComponent(query)}`;
+        let url = `/plugins/search.php?q=${encodeURIComponent(query)}`;
         if (min) {
             url += `&min=${min}`;
         }
