@@ -23,13 +23,6 @@ function getRedisClient() {
     return $redis;
 }
 
-function getMemcached() {
-    $host = envVar('MEMCACHED_HOST', '127.0.0.1');
-    $port = envVar('MEMCACHED_PORT', 11211);
-    $mem = new Memcached();
-    $mem->addServer($host, $port);
-    return $mem;
-}
 
 function getDbConnection() {
     $driver = envVar('DB_DRIVER', 'redis');

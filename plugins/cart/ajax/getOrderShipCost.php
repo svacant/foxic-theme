@@ -6,7 +6,7 @@ $country = $_REQUEST['country'];
 
 // Use a cache to avoid requesting the remote API every time.
 $cacheKey = 'ship_cost_' . md5($country);
-$cached = $mem_var->get($cacheKey);
+$cached = $cache->get($cacheKey);
 if ($cached) {
     echo $cached;
     return;
@@ -21,6 +21,6 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['country' => $country]));
   $server_output = curl_exec($ch);
   curl_close ($ch);
   if ($server_output) {
-      $mem_var->set($cacheKey, $server_output, 3600);
+      $cache->set($cacheKey, $server_output, 3600);
   }
   echo $server_output;
